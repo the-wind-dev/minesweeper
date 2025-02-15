@@ -16,7 +16,6 @@ import { BOARD_CONFIG } from "./board.config";
 
     public settings = BOARD_CONFIG;
     public grid: Cell[][] = [];
-    public testGrid:  Cell[][] = [];
 
     // public methods
 
