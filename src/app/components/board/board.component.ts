@@ -31,7 +31,7 @@ import { CounterComponent } from "../counter/counter.component";
 
         if (this.grid[x][y].isMine) {
             this.grid[x][y].isOpened = true;
-            alert('Game Over!');
+            alert('Game Over! :(');
             this.revealAllMines();
         }
 
@@ -111,8 +111,6 @@ import { CounterComponent } from "../counter/counter.component";
         });
     }
 
-    
-
     private revealCell(x: number, y: number): void {
         const cell = this.getCell(x, y);
     
@@ -125,19 +123,24 @@ import { CounterComponent } from "../counter/counter.component";
         if (cell.adjacentMines === 0 && !cell.isMine) {
             this.revealNeighbors(x, y);
         }
-      }
 
-      private revealNeighbors(x: number, y: number): void {
+        if (this.checkWin()) {
+            alert('You won!');
+            this.revealAllMines();
+        }
+    }
+
+    private revealNeighbors(x: number, y: number): void {
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
-              if (i === 0 && j === 0) continue;
-      
-              const newX = x + i;
-              const newY = y + j;
-      
-              this.revealCell(newX, newY);
+                if (i === 0 && j === 0) continue;
+        
+                const newX = x + i;
+                const newY = y + j;
+        
+                this.revealCell(newX, newY);
             }
-          }
+        }
     }
 
     private getCell(x: number, y: number): Cell | undefined {
@@ -145,6 +148,19 @@ import { CounterComponent } from "../counter/counter.component";
           return this.grid[x][y];
         }
         return undefined;
+    }
+
+    private checkWin(): boolean {
+        const {rows, cols} = this.settings;
+        for (let x = 0; x < rows; x++) {
+            for (let y = 0; y < cols; y++) {
+                const cell = this.grid[x][y];
+                if (!cell.isMine && !cell.isOpened) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     
   }
