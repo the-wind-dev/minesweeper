@@ -1,0 +1,18 @@
+.cell {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: blueviolet;
+    cursor: default;
+
+    &:hover {
+        background-color: rgb(59, 18, 97);
+    }
+
+    &.opened {
+        background-color: white;
+        border-color: #aaa;
+    }
+}
