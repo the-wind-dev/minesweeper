@@ -1,0 +1,9 @@
+<div 
+    class="cell"
+    [class.opened]="cell.isOpened" 
+    [class.mine]="cell.isOpened && cell.isMine"
+    [class.flag]="cell.isFlagged"
+    [ngClass]="'number-' + cell.adjacentMines"
+    (click)="handleLeftClick()" 
+    (contextmenu)="handleRightClick($event)">
+</div>
