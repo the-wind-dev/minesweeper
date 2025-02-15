@@ -1,4 +1,7 @@
-<div class="board" [style.gridTemplateColumns]="'repeat(' + settings.cols + ', 30px)'">
+<div class="control-panel">
+    <app-counter [count]="remainingMines"></app-counter>
+</div>
+<div class="board" [style.gridTemplateColumns]="'repeat(' + settings.cols + ', 50px)'">
     <ng-container *ngFor="let row of grid">
         <ng-container *ngFor="let cell of row">
             <app-cell

@@ -3,12 +3,13 @@ import { Component, OnInit } from "@angular/core";
 import { Cell } from "../../models";
 import { CellComponent } from "../cell/cell.component";
 import { BOARD_CONFIG } from "./board.config";
+import { CounterComponent } from "../counter/counter.component";
 
 
 
 @Component({
     selector: 'app-board',
-    imports: [CommonModule, CellComponent],
+    imports: [CommonModule, CellComponent, CounterComponent],
     templateUrl: './board.component.html',
     styleUrl: './board.component.scss'
   })
@@ -16,7 +17,7 @@ import { BOARD_CONFIG } from "./board.config";
 
     public settings = BOARD_CONFIG;
     public grid: Cell[][] = [];
-
+    public remainingMines: number = this.settings.mines;
     // public methods
 
     public ngOnInit() {
@@ -39,6 +40,7 @@ import { BOARD_CONFIG } from "./board.config";
 
     public handleFlag({ x, y }: { x: number; y: number}): void {
         this.grid[x][y].isFlagged = !this.grid[x][y].isFlagged;
+        this.remainingMines += this.grid[x][y].isFlagged ? -1 : 1;
     }
 
     // private methods
