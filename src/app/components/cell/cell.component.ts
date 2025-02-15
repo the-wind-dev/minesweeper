@@ -12,7 +12,7 @@ export class CellComponent {
   @Input() cell!: Cell;
 
   @Output() onReveal = new EventEmitter<{ x: number; y: number }>();
-  @Output() onFlag = new EventEmitter<{ x: number; y: number, isFlagged: boolean }>();
+  @Output() onFlag = new EventEmitter<{ x: number; y: number }>();
 
   handleLeftClick(): void {
     const {isOpened, isFlagged, x, y} = this.cell;
@@ -22,10 +22,11 @@ export class CellComponent {
     }
   }
 
-  handleRightClick(): void {
-    const {isOpened, isFlagged, x, y} = this.cell;
+  handleRightClick(event: MouseEvent): void {
+    event.preventDefault();
+    const {isOpened, x, y} = this.cell;
     if (!isOpened) {
-      this.onFlag.emit({x, y, isFlagged});
+      this.onFlag.emit({x, y});
     }
   }
 }

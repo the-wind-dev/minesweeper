@@ -6,4 +6,8 @@
     [ngClass]="'number-' + cell.adjacentMines"
     (click)="handleLeftClick()" 
     (contextmenu)="handleRightClick($event)">
+
+    <span *ngIf="cell.isOpened && !cell.isMine && cell.adjacentMines > 0">{{ cell.adjacentMines }}</span>
+    <span *ngIf="cell.isOpened && cell.isMine">💣</span>
+    <span *ngIf="cell.isFlagged">🚩</span>
 </div>

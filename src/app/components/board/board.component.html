@@ -1,0 +1,25 @@
+<div class="board" [style.gridTemplateColumns]="'repeat(' + settings.cols + ', 30px)'">
+    <ng-container *ngFor="let row of grid">
+        <ng-container *ngFor="let cell of row">
+            <app-cell
+                [cell]="cell"
+                (onReveal)="handleReveal($event)"
+                (onFlag)="handleFlag($event)">
+            </app-cell>
+        </ng-container>
+    </ng-container>
+</div>
+<br/>
+<br/>
+<br/>
+<div class="board" [style.gridTemplateColumns]="'repeat(' + settings.cols + ', 30px)'">
+    <ng-container *ngFor="let row of testGrid">
+        <ng-container *ngFor="let cell of row">
+            <app-cell
+                [cell]="cell"
+                (onReveal)="handleReveal($event)"
+                (onFlag)="handleFlag($event)">
+            </app-cell>
+        </ng-container>
+    </ng-container>
+</div>
