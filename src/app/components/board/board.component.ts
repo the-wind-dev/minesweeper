@@ -15,9 +15,12 @@ import { CounterComponent } from "../counter/counter.component";
   })
   export class BoardComponent implements OnInit {
 
-    public settings = BOARD_CONFIG;
+    public settings: GridSettings = BOARD_CONFIG;
     public grid: Cell[][] = [];
     public remainingMines: number = this.settings.mines;
+
+    private gameOver: boolean = false;
+
     // public methods
 
     public ngOnInit() {
@@ -25,12 +28,9 @@ import { CounterComponent } from "../counter/counter.component";
     }
 
     public handleReveal({ x, y }: { x: number; y: number }): void {
-        
-
-        console.log(this.grid[x][y]);
-
         if (this.grid[x][y].isMine) {
             this.grid[x][y].isOpened = true;
+            this.gameOver = true;
             alert('Game Over! :(');
             this.revealAllMines();
         }
@@ -41,6 +41,20 @@ import { CounterComponent } from "../counter/counter.component";
     public handleFlag({ x, y }: { x: number; y: number}): void {
         this.grid[x][y].isFlagged = !this.grid[x][y].isFlagged;
         this.remainingMines += this.grid[x][y].isFlagged ? -1 : 1;
+    }
+
+    public newGame() {
+        let ans = false;
+        if (!this.gameOver) {
+            ans = confirm("Start new game?");
+        }
+        if (ans || this.gameOver) {
+            this.initializeBoard();
+        }
+    }
+
+    public onSettings() {
+        console.log("OpenSettings");
     }
 
     // private methods
@@ -59,6 +73,9 @@ import { CounterComponent } from "../counter/counter.component";
 
         this.placeMines();
         this.calculateAdjacency();
+        // TODO  вотдельный метод
+        this.remainingMines = this.settings.mines;
+        this.gameOver = false;
     }
 
     private placeMines(): void {
@@ -126,7 +143,7 @@ import { CounterComponent } from "../counter/counter.component";
 
         if (this.checkWin()) {
             alert('You won!');
-            this.revealAllMines();
+            this.gameOver = true;
         }
     }
 
@@ -162,5 +179,4 @@ import { CounterComponent } from "../counter/counter.component";
         }
         return true;
     }
-    
   }
