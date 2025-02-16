@@ -1,6 +1,6 @@
 <div class="control-panel">
     <app-counter [count]="remainingMines"></app-counter>
-    <button (click)="newGame()">New game</button>
+    <button (click)="startNewGame()">New game</button>
     <button (click)="onSettings()">Settings</button>
 </div>
 
@@ -15,3 +15,5 @@
         </ng-container>
     </ng-container>
 </div>
+
+<app-modal-dialog *ngIf="isDialogVisible" question="New Game?" (isConfirmed)="closeModal($event)"></app-modal-dialog>

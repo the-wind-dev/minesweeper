@@ -1,2 +1,2 @@
 export * from './cell.model';
-export * from './gridSettings.model';
+export * from './grid-settings.model';

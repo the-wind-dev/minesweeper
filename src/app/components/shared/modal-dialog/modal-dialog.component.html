@@ -1,0 +1,9 @@
+<div class="modal-content">
+    <span class="close" (click)="close()">&times;</span>
+    <h2 *ngIf="header">{{header}}</h2>
+    <p class="question">{{question}}</p>
+    <div class="answers">
+        <button (click)="confirm()">Yes</button>
+        <button (click)="close()">No</button>
+    </div>
+</div>

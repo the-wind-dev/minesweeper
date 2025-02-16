@@ -1,15 +1,16 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
-import { Cell } from "../../models";
+import { Cell, GridSettings } from "../../models";
 import { CellComponent } from "../cell/cell.component";
 import { BOARD_CONFIG } from "./board.config";
 import { CounterComponent } from "../counter/counter.component";
+import { ModalDialogComponent } from "../shared/modal-dialog/modal-dialog.component";
 
 
 
 @Component({
     selector: 'app-board',
-    imports: [CommonModule, CellComponent, CounterComponent],
+    imports: [CommonModule, CellComponent, CounterComponent, ModalDialogComponent],
     templateUrl: './board.component.html',
     styleUrl: './board.component.scss'
   })
@@ -18,6 +19,8 @@ import { CounterComponent } from "../counter/counter.component";
     public settings: GridSettings = BOARD_CONFIG;
     public grid: Cell[][] = [];
     public remainingMines: number = this.settings.mines;
+
+    public isDialogVisible: boolean = false;
 
     private gameOver: boolean = false;
 
@@ -28,6 +31,10 @@ import { CounterComponent } from "../counter/counter.component";
     }
 
     public handleReveal({ x, y }: { x: number; y: number }): void {
+        if (this.gameOver) {
+            return;
+        }
+
         if (this.grid[x][y].isMine) {
             this.grid[x][y].isOpened = true;
             this.gameOver = true;
@@ -43,18 +50,23 @@ import { CounterComponent } from "../counter/counter.component";
         this.remainingMines += this.grid[x][y].isFlagged ? -1 : 1;
     }
 
-    public newGame() {
-        let ans = false;
+    public onSettings() {
+        console.log("OpenSettings");
+    }
+
+    public startNewGame() {
         if (!this.gameOver) {
-            ans = confirm("Start new game?");
-        }
-        if (ans || this.gameOver) {
+            this.isDialogVisible = true;
+        } else {
             this.initializeBoard();
         }
     }
 
-    public onSettings() {
-        console.log("OpenSettings");
+    public closeModal(isConfirmed: boolean) {
+        this.isDialogVisible = false;
+        if (isConfirmed) {
+            this.initializeBoard();
+        };
     }
 
     // private methods
@@ -168,6 +180,9 @@ import { CounterComponent } from "../counter/counter.component";
     }
 
     private checkWin(): boolean {
+        if (this.gameOver) {
+            return false;
+        }
         const {rows, cols} = this.settings;
         for (let x = 0; x < rows; x++) {
             for (let y = 0; y < cols; y++) {
@@ -178,5 +193,5 @@ import { CounterComponent } from "../counter/counter.component";
             }
         }
         return true;
-    }
-  }
+    }    
+}
