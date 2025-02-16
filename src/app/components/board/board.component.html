@@ -17,3 +17,4 @@
 </div>
 
 <app-modal-dialog *ngIf="isDialogVisible" question="New Game?" (isConfirmed)="closeModal($event)"></app-modal-dialog>
+<app-notification *ngIf="isNotificationVisible" (closed)="closeNotification($event)" [notification]="notification"></app-notification>

@@ -5,12 +5,13 @@ import { CellComponent } from "../cell/cell.component";
 import { BOARD_CONFIG } from "./board.config";
 import { CounterComponent } from "../counter/counter.component";
 import { ModalDialogComponent } from "../shared/modal-dialog/modal-dialog.component";
+import { NotificationComponent } from "../shared/notification/notification.component";
 
 
 
 @Component({
     selector: 'app-board',
-    imports: [CommonModule, CellComponent, CounterComponent, ModalDialogComponent],
+    imports: [CommonModule, CellComponent, CounterComponent, ModalDialogComponent, NotificationComponent],
     templateUrl: './board.component.html',
     styleUrl: './board.component.scss'
   })
@@ -21,6 +22,8 @@ import { ModalDialogComponent } from "../shared/modal-dialog/modal-dialog.compon
     public remainingMines: number = this.settings.mines;
 
     public isDialogVisible: boolean = false;
+    public isNotificationVisible: boolean = false;
+    public notification: string ="";
 
     private gameOver: boolean = false;
 
@@ -38,7 +41,8 @@ import { ModalDialogComponent } from "../shared/modal-dialog/modal-dialog.compon
         if (this.grid[x][y].isMine) {
             this.grid[x][y].isOpened = true;
             this.gameOver = true;
-            alert('Game Over! :(');
+            this.notification = "Game Over! :(";
+            this.isNotificationVisible = true;
             this.revealAllMines();
         }
 
@@ -67,6 +71,12 @@ import { ModalDialogComponent } from "../shared/modal-dialog/modal-dialog.compon
         if (isConfirmed) {
             this.initializeBoard();
         };
+    }
+
+    public closeNotification(closed: boolean) {
+        if (closed) {
+            this.isNotificationVisible = false;
+        }
     }
 
     // private methods
@@ -154,7 +164,8 @@ import { ModalDialogComponent } from "../shared/modal-dialog/modal-dialog.compon
         }
 
         if (this.checkWin()) {
-            alert('You won!');
+            this.notification = "You won!";
+            this.isNotificationVisible = true;
             this.gameOver = true;
         }
     }
