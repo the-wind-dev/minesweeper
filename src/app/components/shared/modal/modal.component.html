@@ -1,0 +1,10 @@
+<div class="modal-overlay" *ngIf="isVisible">
+    <div class="modal-content">
+        <span class="close" (click)="close()">&times;</span>
+        <h2>{{message}}</h2>
+        <div class="answers" *ngIf="isConfirm">
+            <button (click)="confirm(true)">Yes</button>
+            <button (click)="confirm(false)">No</button>
+        </div>
+    </div>
+</div>

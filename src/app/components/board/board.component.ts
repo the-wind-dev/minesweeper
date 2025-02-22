@@ -1,29 +1,25 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
-import { Cell, GridSettings } from "../../models";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Cell, GridSettings, ModalType } from "../../models";
 import { CellComponent } from "../cell/cell.component";
 import { BOARD_CONFIG } from "./board.config";
 import { CounterComponent } from "../counter/counter.component";
-import { ModalDialogComponent } from "../shared/modal-dialog/modal-dialog.component";
-import { NotificationComponent } from "../shared/notification/notification.component";
+import { ModalComponent } from "../shared/modal/modal.component";
 
 
 
 @Component({
     selector: 'app-board',
-    imports: [CommonModule, CellComponent, CounterComponent, ModalDialogComponent, NotificationComponent],
+    imports: [CommonModule, CellComponent, CounterComponent, ModalComponent],
     templateUrl: './board.component.html',
     styleUrl: './board.component.scss'
   })
   export class BoardComponent implements OnInit {
+    @ViewChild('modal') modal!: ModalComponent;
 
     public settings: GridSettings = BOARD_CONFIG;
     public grid: Cell[][] = [];
     public remainingMines: number = this.settings.mines;
-
-    public isDialogVisible: boolean = false;
-    public isNotificationVisible: boolean = false;
-    public notification: string ="";
 
     private gameOver: boolean = false;
 
@@ -41,8 +37,7 @@ import { NotificationComponent } from "../shared/notification/notification.compo
         if (this.grid[x][y].isMine) {
             this.grid[x][y].isOpened = true;
             this.gameOver = true;
-            this.notification = "Game Over! :(";
-            this.isNotificationVisible = true;
+            this.showNotification("Game Over! :(");
             this.revealAllMines();
         }
 
@@ -50,6 +45,9 @@ import { NotificationComponent } from "../shared/notification/notification.compo
     }
 
     public handleFlag({ x, y }: { x: number; y: number}): void {
+        if (this.gameOver) {
+            return;
+        }
         this.grid[x][y].isFlagged = !this.grid[x][y].isFlagged;
         this.remainingMines += this.grid[x][y].isFlagged ? -1 : 1;
     }
@@ -60,23 +58,17 @@ import { NotificationComponent } from "../shared/notification/notification.compo
 
     public startNewGame() {
         if (!this.gameOver) {
-            this.isDialogVisible = true;
+            this.showDialog("Start new Game?");
         } else {
             this.initializeBoard();
         }
     }
 
-    public closeModal(isConfirmed: boolean) {
-        this.isDialogVisible = false;
-        if (isConfirmed) {
+    public handleConfirm(confirmed: boolean) {
+        if (confirmed) {
             this.initializeBoard();
-        };
-    }
-
-    public closeNotification(closed: boolean) {
-        if (closed) {
-            this.isNotificationVisible = false;
-        }
+        } 
+        this.modal.close();
     }
 
     // private methods
@@ -164,8 +156,7 @@ import { NotificationComponent } from "../shared/notification/notification.compo
         }
 
         if (this.checkWin()) {
-            this.notification = "You won!";
-            this.isNotificationVisible = true;
+            this.showNotification("You won!");
             this.gameOver = true;
         }
     }
@@ -204,5 +195,15 @@ import { NotificationComponent } from "../shared/notification/notification.compo
             }
         }
         return true;
-    }    
+    }
+
+    private showNotification(message: string): void {
+        this.modal.type = ModalType.Notification;
+        this.modal.show(message);
+    }
+
+    private showDialog(message: string): void {
+        this.modal.type = ModalType.Confirm;
+        this.modal.show(message);
+    }
 }
