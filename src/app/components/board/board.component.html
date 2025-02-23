@@ -1,8 +1,4 @@
-<div class="control-panel">
-    <app-counter [count]="remainingMines"></app-counter>
-    <button (click)="startNewGame()">New game</button>
-    <button (click)="onSettings()">Settings</button>
-</div>
+<app-control-panel (reset)="resetGame()"  [isGameOver]="isGameOver" [remainingMines]="remainingMines"></app-control-panel>
 
 <div class="board" [style.gridTemplateColumns]="'repeat(' + settings.cols + ', 50px)'">
     <ng-container *ngFor="let row of grid">
@@ -16,4 +12,4 @@
     </ng-container>
 </div>
 
-<app-modal #modal (onConfirm)="handleConfirm($event)"></app-modal> 
+<app-modal #modal></app-modal> 

@@ -1,0 +1,7 @@
+<div class="control-panel">
+    <app-counter [count]="remainingMines"></app-counter>
+    <button (click)="startNewGame()">New game</button>
+    <button (click)="onSettings()">Settings</button>
+</div>
+
+<app-modal #modal (onConfirm)="handleConfirm($event)"></app-modal> 

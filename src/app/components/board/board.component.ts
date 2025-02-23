@@ -3,14 +3,14 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { Cell, GridSettings, ModalType } from "../../models";
 import { CellComponent } from "../cell/cell.component";
 import { BOARD_CONFIG } from "./board.config";
-import { CounterComponent } from "../counter/counter.component";
 import { ModalComponent } from "../shared/modal/modal.component";
+import { ControlPanelComponent } from "../control-panel/control-panel.component";
 
 
 
 @Component({
     selector: 'app-board',
-    imports: [CommonModule, CellComponent, CounterComponent, ModalComponent],
+    imports: [CommonModule, CellComponent, ModalComponent, ControlPanelComponent],
     templateUrl: './board.component.html',
     styleUrl: './board.component.scss'
   })
@@ -22,6 +22,10 @@ import { ModalComponent } from "../shared/modal/modal.component";
     public remainingMines: number = this.settings.mines;
 
     private gameOver: boolean = false;
+
+    get isGameOver(): boolean {
+        return this.gameOver;
+    }
 
     // public methods
 
@@ -56,19 +60,8 @@ import { ModalComponent } from "../shared/modal/modal.component";
         console.log("OpenSettings");
     }
 
-    public startNewGame() {
-        if (!this.gameOver) {
-            this.showDialog("Start new Game?");
-        } else {
-            this.initializeBoard();
-        }
-    }
-
-    public handleConfirm(confirmed: boolean) {
-        if (confirmed) {
-            this.initializeBoard();
-        } 
-        this.modal.close();
+    public resetGame() {
+        this.initializeBoard();
     }
 
     // private methods
@@ -199,11 +192,6 @@ import { ModalComponent } from "../shared/modal/modal.component";
 
     private showNotification(message: string): void {
         this.modal.type = ModalType.Notification;
-        this.modal.show(message);
-    }
-
-    private showDialog(message: string): void {
-        this.modal.type = ModalType.Confirm;
         this.modal.show(message);
     }
 }
