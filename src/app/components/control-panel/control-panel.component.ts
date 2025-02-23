@@ -7,7 +7,7 @@ import { CounterComponent } from "../counter/counter.component";
     selector: 'app-control-panel',
     imports: [CounterComponent, ModalComponent],
     templateUrl: './control-panel.component.html',
-    styleUrls: ['./control-panel.component.scss'],
+    styleUrl: './control-panel.component.scss',
   })
   export class ControlPanelComponent {
     @ViewChild('modal') modal!: ModalComponent;

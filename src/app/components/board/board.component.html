@@ -1,8 +1,8 @@
 <app-control-panel (reset)="resetGame()"  [isGameOver]="isGameOver" [remainingMines]="remainingMines"></app-control-panel>
 
 <div class="board" [style.gridTemplateColumns]="'repeat(' + settings.cols + ', 50px)'">
-    <ng-container *ngFor="let row of grid">
-        <ng-container *ngFor="let cell of row">
+    <ng-container *ngFor="let row of grid; trackBy: trackByRow">
+        <ng-container *ngFor="let cell of row; trackBy: trackByCell">
             <app-cell
                 [cell]="cell"
                 (onReveal)="handleReveal($event)"

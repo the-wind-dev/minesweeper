@@ -12,7 +12,7 @@ import { ControlPanelComponent } from "../control-panel/control-panel.component"
     selector: 'app-board',
     imports: [CommonModule, CellComponent, ModalComponent, ControlPanelComponent],
     templateUrl: './board.component.html',
-    styleUrl: './board.component.scss'
+    styleUrl: './board.component.scss',
   })
   export class BoardComponent implements OnInit {
     @ViewChild('modal') modal!: ModalComponent;
@@ -56,13 +56,17 @@ import { ControlPanelComponent } from "../control-panel/control-panel.component"
         this.remainingMines += this.grid[x][y].isFlagged ? -1 : 1;
     }
 
-    public onSettings() {
-        console.log("OpenSettings");
-    }
-
     public resetGame() {
         this.initializeBoard();
     }
+
+    trackByRow(index: number, row: Cell[]): number {
+        return index;
+      }
+      
+      trackByCell = (index: number, cell: Cell): number => {
+        return cell.x * this.settings.cols + cell.y;
+      }
 
     // private methods
 

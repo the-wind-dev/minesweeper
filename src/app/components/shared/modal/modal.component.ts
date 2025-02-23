@@ -6,7 +6,7 @@ import { ModalType } from '../../../models';
   selector: 'app-modal',
   imports: [CommonModule],
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  styleUrl: './modal.component.scss'
 })
 export class ModalComponent {
     @Input() type: ModalType = ModalType.Notification;
