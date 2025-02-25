@@ -5,6 +5,7 @@ import { CellComponent } from "../cell/cell.component";
 import { BOARD_CONFIG } from "./board.config";
 import { ModalComponent } from "../shared/modal/modal.component";
 import { ControlPanelComponent } from "../control-panel/control-panel.component";
+import { GameSettingsService } from "../../services/game-settings.service";
 
 
 
@@ -27,10 +28,13 @@ import { ControlPanelComponent } from "../control-panel/control-panel.component"
         return this.gameOver;
     }
 
+    constructor(private gameSettingsService: GameSettingsService) {}
+
     // public methods
 
     public ngOnInit() {
         this.initializeBoard();
+        this.subscribeSettings()
     }
 
     public handleReveal({ x, y }: { x: number; y: number }): void {
@@ -60,13 +64,13 @@ import { ControlPanelComponent } from "../control-panel/control-panel.component"
         this.initializeBoard();
     }
 
-    trackByRow(index: number, row: Cell[]): number {
+    public trackByRow(index: number, row: Cell[]): number {
         return index;
-      }
+    }
       
-      trackByCell = (index: number, cell: Cell): number => {
+    public trackByCell = (index: number, cell: Cell): number => {
         return cell.x * this.settings.cols + cell.y;
-      }
+    }
 
     // private methods
 
@@ -197,5 +201,12 @@ import { ControlPanelComponent } from "../control-panel/control-panel.component"
     private showNotification(message: string): void {
         this.modal.type = ModalType.Notification;
         this.modal.show(message);
+    }
+
+    private subscribeSettings(): void {
+        this.gameSettingsService.$settings.subscribe((settings) => {
+            this.settings = settings;
+            this.initializeBoard();
+        });
     }
 }

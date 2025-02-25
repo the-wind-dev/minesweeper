@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from "@angular/core";
-import { ModalType } from "../../models";
+import { GridSettings, ModalType } from "../../models";
 import { ModalComponent } from "../shared/modal/modal.component";
 import { CounterComponent } from "../counter/counter.component";
+import { SettingsComponent } from "../settings/settings.component";
+import { GameSettingsService } from "../../services/game-settings.service";
 
 @Component({
     selector: 'app-control-panel',
-    imports: [CounterComponent, ModalComponent],
+    imports: [CounterComponent, ModalComponent, SettingsComponent],
     templateUrl: './control-panel.component.html',
     styleUrl: './control-panel.component.scss',
   })
@@ -16,6 +18,18 @@ import { CounterComponent } from "../counter/counter.component";
     @Input() isGameOver: boolean = false;
 
     @Output() reset = new EventEmitter<void>();
+
+    isSettingsVisible: boolean = false;
+    rows: number = 10;
+    cols: number = 10;
+    mines: number = 10;
+
+    constructor(private gameSettingsService: GameSettingsService) {}
+
+    private onSettingsChange(settings: GridSettings) {
+        // Отправляем новые настройки через сервис
+        this.gameSettingsService.updateSettings(settings);
+    }
     
     private showDialog(message: string): void {
         this.modal.type = ModalType.Confirm;
@@ -37,7 +51,21 @@ import { CounterComponent } from "../counter/counter.component";
         this.modal.close();
     }
 
-    public onSettings() {
-        console.log("OpenSettings");
+    public openSettings() {
+        this.isSettingsVisible = true;
+    }
+
+    public onSaveSettings(settings: GridSettings) {
+        console.log(settings);
+        this.rows = settings.rows;
+        this.cols = settings.cols;
+        this.mines = settings.mines;
+        this.onSettingsChange(settings);
+        this.isSettingsVisible = false;
+        // Здесь можно добавить логику для перезапуска игры с новыми настройками
+    }
+
+    public onCloseSettings() {
+        this.isSettingsVisible = false;
     }
   }

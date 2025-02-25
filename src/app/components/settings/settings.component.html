@@ -1,0 +1,53 @@
+<div class="settings-overlay" *ngIf="isVisible">
+    <div class="settings-content">
+      <h2>Settings</h2>
+      <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="rows">Rows:</label>
+          <input
+            type="number"
+            id="rows"
+            formControlName="rows"
+            min="5"
+            max="20"
+            required
+          />
+          <div *ngIf="settingsForm.get('rows')?.invalid && settingsForm.get('rows')?.touched" class="error">
+            Введите значение от 5 до 20.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cols">Cols:</label>
+          <input
+            type="number"
+            id="cols"
+            formControlName="cols"
+            min="5"
+            max="20"
+            required
+          />
+          <div *ngIf="settingsForm.get('cols')?.invalid && settingsForm.get('cols')?.touched" class="error">
+            Введите значение от 5 до 20.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="mines">Mines:</label>
+          <input
+            type="number"
+            id="mines"
+            formControlName="mines"
+            min="1"
+            [max]="maxMines"
+            required
+          />
+          <div *ngIf="settingsForm.get('mines')?.invalid && settingsForm.get('mines')?.touched" class="error">
+            Введите значение от 1 до {{ maxMines }}.
+          </div>
+        </div>
+        <div class="buttons">
+          <button type="submit" [disabled]="settingsForm.invalid">Save</button>
+          <button type="button" (click)="onClose()">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
