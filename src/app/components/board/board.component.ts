@@ -2,10 +2,10 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Cell, GridSettings, ModalType } from "../../models";
 import { CellComponent } from "../cell/cell.component";
-import { BOARD_CONFIG } from "./board.config";
 import { ModalComponent } from "../shared/modal/modal.component";
 import { ControlPanelComponent } from "../control-panel/control-panel.component";
 import { GameSettingsService } from "../../services/game-settings.service";
+import { DEFAULT_BOARD_SETTINGS } from "../../constants";
 
 
 
@@ -18,7 +18,7 @@ import { GameSettingsService } from "../../services/game-settings.service";
   export class BoardComponent implements OnInit {
     @ViewChild('modal') modal!: ModalComponent;
 
-    public settings: GridSettings = BOARD_CONFIG;
+    public settings: GridSettings = DEFAULT_BOARD_SETTINGS;
     public grid: Cell[][] = [];
     public remainingMines: number = this.settings.mines;
 

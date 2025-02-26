@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { GridSettings } from '../../models';
+import { GameSettings, GridSettings } from '../../models';
+import { DEFAULT_BOARD_SETTINGS, GAME_SETTINGS } from '../../constants';
 
 @Component({
   selector: 'app-settings',
@@ -10,20 +11,40 @@ import { GridSettings } from '../../models';
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
-  @Input() isVisible: boolean = false; // Видимость popup
+  @Input() isVisible: boolean = false;
   @Output() saveSettings = new EventEmitter<GridSettings>();
   @Output() close = new EventEmitter<void>();
 
+  public gameSettings: GameSettings = GAME_SETTINGS;
   settingsForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.settingsForm = this.fb.group({
-      rows: [10, [Validators.required, Validators.min(5), Validators.max(20)]],
-      cols: [10, [Validators.required, Validators.min(5), Validators.max(20)]],
-      mines: [10, [Validators.required, Validators.min(1)]],
+      rows: [
+        DEFAULT_BOARD_SETTINGS.rows,
+        [
+          Validators.required,
+          Validators.min(this.gameSettings.minRows),
+          Validators.max(this.gameSettings.maxRows),
+        ]
+      ],
+      cols: [
+        DEFAULT_BOARD_SETTINGS.cols,
+        [
+          Validators.required,
+          Validators.min(this.gameSettings.minCols),
+          Validators.max(this.gameSettings.maxCols),
+        ]
+      ],
+      mines: [
+        DEFAULT_BOARD_SETTINGS.mines,
+        [
+          Validators.required,
+          Validators.min(this.gameSettings.minMines),
+        ]
+      ],
     });
 
-    // Динамически обновляем максимальное количество мин
     this.settingsForm.get('rows')?.valueChanges.subscribe(() => this.updateMaxMines());
     this.settingsForm.get('cols')?.valueChanges.subscribe(() => this.updateMaxMines());
   }

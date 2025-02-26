@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { GridSettings } from '../models';
-import { BOARD_CONFIG } from '../components/board/board.config';
+import { DEFAULT_BOARD_SETTINGS } from '../constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameSettingsService {
 
-  private settingsSubject = new BehaviorSubject<GridSettings>(BOARD_CONFIG);
+  private settingsSubject = new BehaviorSubject<GridSettings>(DEFAULT_BOARD_SETTINGS);
 
   $settings = this.settingsSubject.asObservable();
 
