@@ -1,7 +1,6 @@
-$modal-width: 300px;
-
+@import 'variables';
 .modal-content {
-    background-color: #fefefe;
+    background-color: $modal-bg-color;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -49,18 +48,4 @@ $modal-width: 300px;
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
-}
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    backdrop-filter: blur(5px);
-    align-items: center;
-    z-index: 1000;
 }
