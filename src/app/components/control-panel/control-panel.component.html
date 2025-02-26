@@ -1,11 +1,31 @@
 <div class="control-panel">
-    <app-counter [count]="remainingMines"></app-counter>
-    <button (click)="startNewGame()">New game</button>
-    <button (click)="openSettings()">Settings</button>
+    <app-counter
+      class="control-panel__counter"
+      [count]="remainingMines">
+    </app-counter>
+
+    <div class="control-panel__buttons">
+      <button 
+        class="control-panel__button"
+        (click)="startNewGame()">
+        New game
+      </button>
+      <button
+        class="control-panel__button"
+        (click)="openSettings()">
+        Settings
+      </button>
+    </div>
 </div>
 
-<app-modal #modal (onConfirm)="handleConfirm($event)"></app-modal>
+<app-modal
+  class="control-panel__modal" 
+  #modal
+  (onConfirm)="handleConfirm($event)">
+</app-modal>
+
 <app-settings
+  class="control-panel__settings"
   [isVisible]="isSettingsVisible"
   (saveSettings)="onSaveSettings($event)"
   (close)="onCloseSettings()"

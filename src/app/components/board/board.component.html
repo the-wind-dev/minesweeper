@@ -1,15 +1,28 @@
-<app-control-panel (reset)="resetGame()"  [isGameOver]="isGameOver" [remainingMines]="remainingMines"></app-control-panel>
+<div class="board" >
+    
+    <app-control-panel 
+        class="board__control-panel"
+        (reset)="resetGame()"
+        [isGameOver]="isGameOver"
+        [remainingMines]="remainingMines">
+    </app-control-panel>
 
-<div class="board" [style.gridTemplateColumns]="'repeat(' + settings.cols + ', 50px)'">
-    <ng-container *ngFor="let row of grid; trackBy: trackByRow">
-        <ng-container *ngFor="let cell of row; trackBy: trackByCell">
-            <app-cell
-                [cell]="cell"
-                (onReveal)="handleReveal($event)"
-                (onFlag)="handleFlag($event)">
-            </app-cell>
+    <div
+        class="board__grid"
+        [style.gridTemplateColumns]="'repeat(' + settings.cols + ', 50px)'">
+
+        <ng-container *ngFor="let row of grid; trackBy: trackByRow">
+            <ng-container *ngFor="let cell of row; trackBy: trackByCell">
+                <app-cell
+                    class="board__cell"
+                    [cell]="cell"
+                    (onReveal)="handleReveal($event)"
+                    (onFlag)="handleFlag($event)">
+                </app-cell>
+            </ng-container>
         </ng-container>
-    </ng-container>
+    </div>
+    
+    
+    <app-modal class="board__modal" #modal></app-modal> 
 </div>
-
-<app-modal #modal></app-modal> 
