@@ -1,47 +1,51 @@
 @import 'variables';
-.modal-content {
-    background-color: $modal-bg-color;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: $modal-width;
-    max-width: 600px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 0.3s ease-in-out;
 
-    position: absolute;
-    top: 0;
-    left: calc(50% - $modal-width/2);
+.modal {
+    &__content {
+        background-color: $modal-bg-color;
+        margin: 25% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: $modal-width;
+        max-width: 600px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 0.3s ease-in-out;
 
-    .close {
+        position: absolute;
+        top: 0;
+        left: calc(50% - $modal-width/2);
+    }
+
+    &__close-icon {
         color: #aaa;
         float: right;
         font-size: 28px;
         font-weight: bold;
-    }
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     }
 
-    h2 {
+    &__title {
         margin: 30px 0;
     }
 
-    .answers {
+    &__answers {
         padding: 0px 20%;
         height: 30px;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-around; 
+    }
 
-        button {
-            padding: 5px;
-            min-width: 50px;
-            height: 100%;
-        }
+    &__button {
+        padding: 5px;
+        min-width: 50px;
+        height: 100%;
     }
 }
 

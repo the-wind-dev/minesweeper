@@ -1,10 +1,12 @@
-<div class="overlay" *ngIf="isVisible">
-    <div class="modal-content">
-        <span class="close" (click)="close()">&times;</span>
-        <h2>{{message}}</h2>
-        <div class="answers" *ngIf="isConfirm">
-            <button (click)="confirm(true)">Yes</button>
-            <button (click)="confirm(false)">No</button>
+<div class="modal" *ngIf="isVisible">
+    <div class="modal__overlay overlay">
+        <div class="modal__content">
+            <span class="modal__close-icon" (click)="close()">&times;</span>
+            <h2 class="modal__title">{{message}}</h2>
+            <div class="modal__answers" *ngIf="isConfirm">
+                <button class="modal__button modal__button--yes" (click)="confirm(true)">Yes</button>
+                <button class="modal__button modal__button--no" (click)="confirm(false)">No</button>
+            </div>
         </div>
     </div>
 </div>

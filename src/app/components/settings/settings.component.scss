@@ -1,42 +1,44 @@
 @import 'variables';
 
-.settings-content {
-  background-color: $modal-bg-color;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: $modal-width;
-  margin: 15% auto;
-  position: absolute;
-  top: 0;
-  left: calc(50% - $modal-width/2);
+.settings {
+  &__content {
+    background-color: $modal-bg-color;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: $modal-width;
+    margin: 25% auto;
+    position: absolute;
+    top: 0;
+    left: calc(50% - $modal-width/2);
+  }
+
+  &__title {
+    margin-bottom: 10px;
+  }
 }
 
-h2 {
-  margin-top: 0;
-}
+.form {
+  &__form-group {
+    margin-bottom: 15px;
+  }
 
-.form-group {
-  margin-bottom: 15px;
-}
+  &__label {
+    display: block;
+    margin-bottom: 5px;
+  }
 
-label {
-  display: block;
-  margin-bottom: 5px;
-}
+  &__input {
+    width: 100%;
+    padding: 8px;
+  }
 
-input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-}
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
 
-.buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
-button {
-  padding: 8px 16px;
-  cursor: pointer;
+  &__button {
+    padding: 8px 16px;
+  }
 }

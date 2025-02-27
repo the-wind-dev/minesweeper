@@ -10,7 +10,7 @@
     font-size: 2em;
     border: 1px solid #f1f1f1;
 
-    &:hover {
+    &:hover:not(&--opened) {
         background-color: rgb(59, 18, 97);
     }
 

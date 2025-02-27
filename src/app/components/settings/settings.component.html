@@ -1,10 +1,17 @@
-<div class="overlay" *ngIf="isVisible">
-    <div class="settings-content">
-      <h2>Settings</h2>
-      <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="rows">Rows:</label>
+<div class="settings" *ngIf="isVisible">
+  <div class="settings__overlay overlay">
+    <div class="settings__content">
+      <h2 class="settings__title">Settings</h2>
+
+      <form
+        class="settings__form form"
+        [formGroup]="settingsForm"
+        (ngSubmit)="onSubmit()">
+
+        <div class="form__form-group">
+          <label class="form__label" for="rows">Rows:</label>
           <input
+            class="form__input"
             type="number"
             id="rows"
             formControlName="rows"
@@ -12,13 +19,14 @@
             max="20"
             required
           />
-          <div *ngIf="settingsForm.get('rows')?.invalid && settingsForm.get('rows')?.touched" class="error">
+          <div class="form__error" *ngIf="settingsForm.get('rows')?.invalid && settingsForm.get('rows')?.touched">
             Enter a value between {{gameSettings.minRows}} and {{gameSettings.maxRows}}
           </div>
         </div>
-        <div class="form-group">
-          <label for="cols">Cols:</label>
+        <div class="form__form-group">
+          <label class="form__label" for="cols">Cols:</label>
           <input
+            class="form__input"
             type="number"
             id="cols"
             formControlName="cols"
@@ -26,13 +34,14 @@
             max="20"
             required
           />
-          <div *ngIf="settingsForm.get('cols')?.invalid && settingsForm.get('cols')?.touched" class="error">
+          <div class="form__error" *ngIf="settingsForm.get('cols')?.invalid && settingsForm.get('cols')?.touched">
             Enter a value between {{gameSettings.minCols}} and {{gameSettings.maxCols}}
           </div>
         </div>
-        <div class="form-group">
-          <label for="mines">Mines:</label>
+        <div class="form__form-group">
+          <label class="form__label" for="mines">Mines:</label>
           <input
+            class="form__input"
             type="number"
             id="mines"
             formControlName="mines"
@@ -40,14 +49,15 @@
             [max]="maxMines"
             required
           />
-          <div *ngIf="settingsForm.get('mines')?.invalid && settingsForm.get('mines')?.touched" class="error">
+          <div class="form__error" *ngIf="settingsForm.get('mines')?.invalid && settingsForm.get('mines')?.touched">
             Enter a value between {{gameSettings.minMines}} and {{ maxMines }}.
           </div>
         </div>
-        <div class="buttons">
-          <button type="submit" [disabled]="settingsForm.invalid">Save</button>
-          <button type="button" (click)="onClose()">Close</button>
+        <div class="form__buttons">
+          <button class="form__button form__button--submit" type="submit" [disabled]="settingsForm.invalid">Save</button>
+          <button class="form__button form__button--close" type="button" (click)="onClose()">Close</button>
         </div>
       </form>
     </div>
   </div>
+</div>
