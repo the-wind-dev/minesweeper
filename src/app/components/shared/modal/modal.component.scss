@@ -1,12 +1,12 @@
-@import 'variables';
+@use 'variables' as vars;
 
 .modal {
     &__content {
-        background-color: $modal-bg-color;
+        background-color: vars.$modal-bg-color;
         margin: 25% auto;
         padding: 20px;
         border: 1px solid #888;
-        width: $modal-width;
+        width: vars.$modal-width;
         max-width: 600px;
         border-radius: 10px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -14,7 +14,7 @@
 
         position: absolute;
         top: 0;
-        left: calc(50% - $modal-width/2);
+        left: calc(50% - vars.$modal-width/2);
     }
 
     &__close-icon {
