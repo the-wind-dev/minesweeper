@@ -5,5 +5,6 @@ export interface Cell {
     isOpened: boolean;
     isFlagged: boolean;
     adjacentMines: number;
+    isIncorrectFlag: boolean;
   }
   

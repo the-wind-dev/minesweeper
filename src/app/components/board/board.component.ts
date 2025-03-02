@@ -82,7 +82,8 @@ import { DEFAULT_BOARD_SETTINGS } from "../../constants";
               isMine: false,
               isOpened: false,
               isFlagged: false,
-              adjacentMines: 0
+              adjacentMines: 0,
+              isIncorrectFlag: false,
             }))
           );
 
@@ -138,7 +139,11 @@ import { DEFAULT_BOARD_SETTINGS } from "../../constants";
     private revealAllMines(): void {
         this.grid.forEach(row => {
             row.forEach(cell => {
-                if (cell.isMine) cell.isOpened = true;
+                if (cell.isMine && !cell.isFlagged) cell.isOpened = true;
+                if (cell.isFlagged && !cell.isMine) {
+                    cell.isIncorrectFlag = true;
+                    cell.isFlagged = false;
+                }
             });
         });
     }

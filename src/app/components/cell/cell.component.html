@@ -4,6 +4,7 @@
     [class.cell--mine]="cell.isOpened && cell.isMine"
     [class.cell--flagged]="cell.isFlagged"
     [class.cell--number]="cell.adjacentMines > 0"
+    [class.cell--incorrect-flag]="cell.isIncorrectFlag"
     [ngClass]="'cell--number-' + cell.adjacentMines"
     (click)="handleLeftClick()" 
     (contextmenu)="handleRightClick($event)">
@@ -11,4 +12,5 @@
     <span class="cell__content" *ngIf="cell.isOpened && !cell.isMine && cell.adjacentMines > 0">{{ cell.adjacentMines }}</span>
     <span class="cell__content" *ngIf="cell.isOpened && cell.isMine && !cell.isFlagged">💣</span>
     <span class="cell__content" *ngIf="cell.isFlagged">🚩</span>
+    <span class="cell__content" *ngIf="cell.isIncorrectFlag">✖️</span>
 </div>
